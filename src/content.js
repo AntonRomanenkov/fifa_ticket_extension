@@ -15,6 +15,7 @@ function checkErrorMsg(diff) {
         'removeMainOwnerTicketError', 'tooManyRequestTickets', 'dialogAvailabilityError', 'invalidRequestedQuantityError', 'quotaDistributionLimitExceededError',
         'quotaDistributionMisconfiguredError', 'transferSeatCatMisconfiguredError'
     ];
+    var timePeriod = diff == 1 ? 1500 : 5000;
     setTimeout(function () {
         if (diff == 1) {
             if ($("#notification_static_limit").hasClass("hidden") == false || $("#notification_static_avail").hasClass("hidden") == false) {
@@ -30,7 +31,7 @@ function checkErrorMsg(diff) {
                 refreshPage();
             }
         }
-    }, 1500);
+    }, timePeriod);
 }
 function ticketValidator() {
     triggerClick = true;
@@ -81,7 +82,7 @@ function filterValidator() {
             }
             $("#list_ticket_items table tbody tr.group_start").each(function (index, ele) {
                 var cateName = $(ele).find(".seatCat").text();
-                if (cateName.indexOf("cate") > -1) {
+                if (cateName.indexOf("Cate") > -1) {
                     if (index < purchaseAmount) {
                         $(ele)[0].dispatchEvent(new Event("click"));
                     }
@@ -93,7 +94,7 @@ function filterValidator() {
     }
 
     $("#book")[0].dispatchEvent(new Event("click"));
-    
+        
     if (!isRefresh) {
         checkErrorMsg();
     } else {
