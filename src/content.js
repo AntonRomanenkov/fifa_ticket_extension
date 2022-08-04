@@ -75,12 +75,16 @@ function filterValidator() {
         if (purchaseAmount > 0) {
             if (clickAble)
                 $("#seat_categories_table").find("input[type='checkbox']")[i].click();
+            
             if ($("#list_ticket_items table tbody tr.group_start").length < purchaseAmount) {
                 isRefresh = true;
             }
             $("#list_ticket_items table tbody tr.group_start").each(function (index, ele) {
-                if (index < purchaseAmount) {
-                    $(ele)[0].dispatchEvent(new Event("click"));
+                var cateName = $(ele).find(".seatCat").text();
+                if (cateName.indexOf("cate") > -1) {
+                    if (index < purchaseAmount) {
+                        $(ele)[0].dispatchEvent(new Event("click"));
+                    }
                 }
             })
             if (clickAble)
