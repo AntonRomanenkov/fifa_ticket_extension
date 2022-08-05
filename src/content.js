@@ -15,7 +15,7 @@ function checkErrorMsg(diff) {
         'removeMainOwnerTicketError', 'tooManyRequestTickets', 'dialogAvailabilityError', 'invalidRequestedQuantityError', 'quotaDistributionLimitExceededError',
         'quotaDistributionMisconfiguredError', 'transferSeatCatMisconfiguredError'
     ];
-    var timePeriod = diff == 1 ? 1500 : 3500;
+    var timePeriod = diff == 1 ? 2000 : 3500;
     setTimeout(function () {
         if (diff == 1) {
             if ($("#notification_static_limit").hasClass("hidden") == false || $("#notification_static_avail").hasClass("hidden") == false) {
@@ -27,7 +27,8 @@ function checkErrorMsg(diff) {
             }
         }
         for (var i in dialogIDs) {
-            if ($("#" + dialogIDs[i]).css("dispplay") == "block") {
+            var displayStyle = $("#" + dialogIDs[i]).css("dispplay");
+            if ( displayStyle == 'block') {
                 refreshPage();
             }
         }
@@ -165,6 +166,8 @@ chrome.runtime.onMessage.addListener(
 $(document).ready(function () {
     if (window.location.href.indexOf("https://resale-intl.fwc22.tickets.fifa.com/cart/reservation") > -1) {
         chrome.extension.sendRequest({message: "playAudio"});
+    } else if (window.location.href == "https://resale-intl.fwc22.tickets.fifa.com/error/noAvailability") {
+        history.back();
     } else {
         setTimeout(function () {
             console.clear();

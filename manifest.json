@@ -10,6 +10,7 @@
     "https://resale-intl.fwc22.tickets.fifa.com/secured/selection/resale/item?performanceId*",
     "https://fcfs-intl.fwc22.tickets.fifa.com/secure/selection/event/*",
     "https://resale-intl.fwc22.tickets.fifa.com/cart/reservation/0",
+    "https://resale-intl.fwc22.tickets.fifa.com/error/noAvailability",
     "storage",
     "tabs"
   ],
@@ -23,6 +24,7 @@
         "https://resale-intl.fwc22.tickets.fifa.com/secure/selection/resale/*",
         "https://resale-intl.fwc22.tickets.fifa.com/secured/selection/resale/item?performanceId*",
         "https://fcfs-intl.fwc22.tickets.fifa.com/secure/selection/event/*",
+        "https://resale-intl.fwc22.tickets.fifa.com/error/noAvailability",
         "https://resale-intl.fwc22.tickets.fifa.com/cart/reservation/0"
       ],
       "js": ["src/jquery-3.5.1.min.js", "src/content.js"],
