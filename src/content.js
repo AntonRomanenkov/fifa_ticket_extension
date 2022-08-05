@@ -27,6 +27,9 @@ function checkErrorMsg(diff) {
             }
         }
         for (var i in dialogIDs) {
+            if ( $('div[aria-describedby="ajaxErrorDialogReload"]').css("display") == "block" ) {
+                refreshPage();
+            }
             var displayStyle = $("#" + dialogIDs[i]).css("dispplay");
             if ( displayStyle == 'block') {
                 refreshPage();
