@@ -15,7 +15,7 @@ function checkErrorMsg(diff) {
         'removeMainOwnerTicketError', 'tooManyRequestTickets', 'dialogAvailabilityError', 'invalidRequestedQuantityError', 'quotaDistributionLimitExceededError',
         'quotaDistributionMisconfiguredError', 'transferSeatCatMisconfiguredError'
     ];
-    var timePeriod = diff == 1 ? 1500 : 5000;
+    var timePeriod = diff == 1 ? 1500 : 3500;
     setTimeout(function () {
         if (diff == 1) {
             if ($("#notification_static_limit").hasClass("hidden") == false || $("#notification_static_avail").hasClass("hidden") == false) {
@@ -64,7 +64,6 @@ function ticketValidator() {
         refreshPage();
     }
 }
-
 function filterValidator() {
     var isRefresh = false;
     var clickAble = true;
@@ -101,10 +100,45 @@ function filterValidator() {
         refreshPage();
     }
 }
+function secureSeat() {
+    var isRefresh = true;
+    for (var i in requestCategory) {
+        var purchaseAmount = requestCategory[i];
+        if (purchaseAmount > 0) {
+            $("#collapsiblePanel_main_content_seat_selection .group_start.group_end.seat_category_end").each(function (index, ele) {
+                if ( $(ele).hasClass("category_unavailable") == false ) {
+                    var cateName = $(this).find("th.category").text()
+                    if (cateName.indexOf("Category") > -1) {
+                        var cateIndex = cateName.split("Category ")[1];
+                        if (cateIndex - 1 == i) {
+                            var quantityNum = $(this).find("td.quantity").find("select").find("option").length;
+                            if (quantityNum >= purchaseAmount) {
+                                isRefresh = false;
+                                var eleId = $(this).find("td.quantity").find("select").attr("id");
+                                $(this).find("td.quantity").find("select").val(purchaseAmount);
+                                $(this).find("td.quantity").find("select")[0].dispatchEvent(new Event("change"));
+                            }
+                        }
+                    }
+                }
+            })
+        }
+    }
+
+    $("#book")[0].dispatchEvent(new Event("click"));
+        
+    if (!isRefresh) {
+        checkErrorMsg();
+    } else {
+        refreshPage();
+    }
+}
 
 function start() {
     if ($("#item_filters").length > 0) {
         filterValidator();
+    } else if ( $("#collapsiblePanel_main_content_seat_selection").length > 0 ) {
+        secureSeat();
     } else {
         ticketValidator();
     }
